@@ -7,8 +7,7 @@ namespace SmartIBS.RevMax2.Svc
 {
     public static class RevMax
     {
-        public static RevmaxAPI.Revmaxlib revmaxlib = new RevmaxAPI.Revmaxlib();
-
+        private static RevmaxAPI.Revmaxlib revmaxlib = new RevmaxAPI.Revmaxlib();
 
         public static string GetDeviceDetail()
         {
@@ -56,6 +55,7 @@ namespace SmartIBS.RevMax2.Svc
             }
         }
 
+
         public static XmlNode LicenseData()
         {
             var lic = new XmlDocument();
@@ -67,6 +67,11 @@ namespace SmartIBS.RevMax2.Svc
             return res;
         }
 
+
+        public static string ZedReport()
+        {
+            return revmaxlib.ZReport();
+        }
         public static bool IsActive()
         {
             var lic = new XmlDocument();
@@ -93,7 +98,7 @@ namespace SmartIBS.RevMax2.Svc
         /// </summary>
         /// <param name="key">Serial obtained from service provider</param>
         /// <returns></returns>
-        public static string SetKey(string key)
+        public static XmlNode SetKey(string key)
         {
             var lic = new XmlDocument();
 
@@ -101,19 +106,19 @@ namespace SmartIBS.RevMax2.Svc
             lic.LoadXml(
                 revmaxlib.SetLicense(key));
 
-            XmlNode? res = lic?.DocumentElement?.SelectSingleNode("/Response/Code");
+            //XmlNode? res = lic?.DocumentElement?.SelectSingleNode("/Response/Code");
 
-            string? status = "Failed"; // default to failed status
+           // string? status = "Failed"; // default to failed status
 
             // No need to proceeed of response is null
-            if (res == null) return status;
+            //if (res == null) return status;
 
 
             // get status from Xml response
-            status = lic?.DocumentElement?.SelectSingleNode("/Response/Data/Status")?.InnerText;
+           // status = lic?.DocumentElement?.SelectSingleNode("/Response/Data/Status")?.InnerText;
 
             // return status as json object
-            return status;
+            return lic?.DocumentElement?.SelectSingleNode("/Response/Data");
         }
 
 

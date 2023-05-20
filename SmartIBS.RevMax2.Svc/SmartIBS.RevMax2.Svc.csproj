@@ -5,16 +5,53 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <PackAsTool>False</PackAsTool>
+    <Platforms>AnyCPU;x86</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="lib\Revmax API DLL Live\WormAPI.dll" />
+    <None Remove="lib\Revmax API DLL Pseudo\licensekey.txt" />
+    <None Remove="lib\Revmax API DLL Pseudo\RevmaxAPI.dll" />
+    <None Remove="lib\Revmax API DLL Pseudo\WormAPI.dll" />
     <None Remove="WormAPI.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="WormAPI.dll">
+    <Content Include="lib\Revmax API DLL Live\WormAPI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\Revmax API DLL Pseudo\licensekey.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="lib\Revmax API DLL Pseudo\RevmaxAPI.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\Revmax API DLL Pseudo\WormAPI.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="lib\Revmax API DLL Live\NLog.config" />
+    <None Include="lib\Revmax API DLL Live\RevmaxAPI.dll.config" />
+    <None Include="lib\Revmax API DLL Live\Signed Files\NLog.config" />
+    <None Include="lib\Revmax API DLL Live\Signed Files\RevmaxAPI.dll.config" />
   </ItemGroup>
 
   <ItemGroup>

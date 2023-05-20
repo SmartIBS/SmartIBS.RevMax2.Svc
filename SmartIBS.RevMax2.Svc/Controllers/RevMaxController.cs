@@ -21,7 +21,7 @@ namespace SmartIBS.RevMax2.Svc.Controllers
 
         
         [HttpGet(Name = "DeviceInfo", Order =0)]
-        public string DevoceInfo() => RevMax.GetDeviceDetail();
+        public string DeviceInfo() => RevMax.GetDeviceDetail();
 
         [HttpPut(Name = "IsAlive", Order = 0)]
         public bool IsAlive([FromBody] string id) => RevMax.IsActive();
@@ -32,7 +32,7 @@ namespace SmartIBS.RevMax2.Svc.Controllers
         {
             try
             {
-                return RevMax.revmaxlib.ZReport();
+                return RevMax.ZedReport();
             }
             catch (Exception ex)
             {
@@ -61,13 +61,19 @@ namespace SmartIBS.RevMax2.Svc.Controllers
             return res;
         }
 
+
+
         [HttpPost(Name ="SetKey")]
         public IResult SetKey([FromBody] string key)
         {
             dynamic status = "FAILED";
             try
             {
-                status = RevMax.SetKey(key);
+                var res = RevMax.SetKey(key);
+                _logger.LogInformation(res.InnerXml);
+
+                status = res?.SelectSingleNode("/Response/Data/Status")?.InnerText;
+                
             }
             catch(Exception e)
             {
